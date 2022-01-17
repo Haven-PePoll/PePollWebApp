@@ -27,7 +27,7 @@ export default function PollVotingPage() {
         dispatch(SetVote({ VotedForOption: option, PollName: currentPoll.Title, VotedAtTime: new Date() } as IVoteData))
     }
 
-    function getRandomArbitrary(min:number, max:number) {
+    function getRandomArbitrary(min: number, max: number) {
         return Math.trunc((Math.random() * (max - min) + min));
     }
 
@@ -54,18 +54,29 @@ export default function PollVotingPage() {
         )
     }
 
-    const thanksForVoting = () => {
+    const thanksForVotingView = () => {
         return (
-            <div style={{textAlign: 'center'}}>
+            <div style={{ textAlign: 'center' }}>
                 {<h1>Thank you for voting!</h1>}
-                {<h3 style={{fontWeight:'bold', marginTop: 15, color:'primary'}}>{getRandomArbitrary(1000, 5000)} others voted for {voted}</h3>}
+                {<h3 style={{ fontWeight: 'bold', marginTop: 15, color: 'primary' }}>{getRandomArbitrary(1000, 5000)} others voted for {voted}</h3>}
+                <Button
+                    style={{ padding: 10, width: 100, marginTop: 10 }}
+                    type="submit"
+                    color="primary"
+                    onClick={handleClick}>
+                    Share Poll
+                </Button>
             </div>
         )
     }
 
+    const handleClick = () => {
+        window.open("whatsapp://send?text=https://thepollingboothmvp.web.app/" + id);
+    };
+
     return (
         <div className="App">
-            {voted ? thanksForVoting() : votingView()}
+            {voted ? thanksForVotingView() : votingView()}
         </div>
     );
 }
