@@ -1,10 +1,11 @@
 import { Action } from "./ActionType";
 import { PollReducer_Types } from "./CurrentPollReducer";
 import IPollData from "./Poll";
-import { doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "./firebase";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "./Store";
+
 
 function setPollAction(payload: IPollData, actionType: string) {
     return {
@@ -26,4 +27,9 @@ export const GetPoll = (pollId: string): ThunkAction<void, RootState, null, Acti
         // doc.data() will be undefined in this case
         console.log("No such document!");
     }
+}
+
+export const WritePoll = (poll: IPollData, id: string): ThunkAction<void, RootState, null, Action> => async (dispatch, getState) => {
+    const docRef = doc(db, "polls", id);
+    await updateDoc(docRef, {Options: poll.Options, Title: poll.Title, Votes: poll.Votes});
 }
