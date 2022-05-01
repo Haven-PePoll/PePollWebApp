@@ -65,7 +65,7 @@ export default function PollVotingPage() {
 
       {otherPolls.map((poll: IPollData, index: number) => (
         <div>{poll.Title}</div>
-      ))}
+      ))} 
     </div>
   );
 }
