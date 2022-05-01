@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import { RootState } from "./Store";
 import { useDispatch, useSelector } from "react-redux";
-import { GetCurrentPolls, GetPoll, SetPoll, WritePoll } from "./PollActions";
+import { GetCurrentPolls, WritePoll } from "./PollActions";
 import { useParams } from "react-router-dom";
 import ResultCard from "./ResultCard";
-import { Rating } from "react-simple-star-rating";
-import { Button, TextField } from "@mui/material";
-import { SetFeedback } from "./FeedbackActions";
-import { IFeedbackData } from "./Feedback";
 import IPollData from "./Poll";
+import Divider from "@mui/material/Divider";
 
 export default function PollVotingPage() {
   const dispatch = useDispatch();
@@ -48,9 +45,44 @@ export default function PollVotingPage() {
   }, [currentPoll]);
 
   return (
-    <div className="App">
-      <h1>{currentPoll.Title}</h1>
-      <ResultCard></ResultCard>
+    <div className="App" style={{ background: "#e3c8fa" }}>
+      <div
+        style={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          background: "#651BA6",
+          borderRadius: 10,
+          paddingBottom: 10,
+        }}
+      >
+        <h1
+          style={{
+            padding: 10,
+            color: "white",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 30,
+          }}
+        >
+          {currentPoll.Title}
+        </h1>
+
+        <ResultCard></ResultCard>
+
+        <h1
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 19,
+          }}
+        >
+          @{currentPoll.Location}
+        </h1>
+      </div>
+
+      <Divider variant="middle" style={{ marginTop: 20 }} />
 
       {/* <h1 style={{ marginTop: 50 }}>Thanks for visiting Haven</h1>
 
@@ -59,13 +91,55 @@ export default function PollVotingPage() {
         surroundings rather than being addicted to their phones all the time!
       </body> */}
 
-      <h1 style={{ marginTop: 50, fontWeight: "bold" }}>
-        Other polls in your area
+      <h1 style={{ marginTop: 10, fontWeight: "bold", textAlign: "center" }}>
+        Other polls near you
       </h1>
 
       {otherPolls.map((poll: IPollData, index: number) => (
-        <div>{poll.Title}</div>
-      ))} 
+        <div
+          style={{
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "#651BA6",
+            borderRadius: 10,
+            padding: 10,
+            marginBottom: 10,
+          }}
+        >
+          <h1
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              textAlign: "start",
+              fontSize: 19,
+            }}
+          >
+            @{poll.Location}
+          </h1>
+          <h1
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              textAlign: "start",
+              fontSize: 19,
+            }}
+          >
+            {poll.Title}
+          </h1>
+
+          <h1
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              textAlign: "start",
+              fontSize: 19,
+            }}
+          >
+            {poll.Options && poll.Options[0]}:{poll.Votes && poll.Votes[0]} | {poll.Options && poll.Options[1]}:{poll.Votes && poll.Votes[1]}
+          </h1>
+        </div>
+      ))}
     </div>
   );
 }

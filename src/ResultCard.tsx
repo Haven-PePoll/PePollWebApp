@@ -18,18 +18,20 @@ export default function OutlinedCard() {
     <div className="app">
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Box sx={{margin: 1}}>
+          <Box sx={{ margin: 2, marginTop: 0, marginRight: 0 }}>
             <Card variant="outlined">
               <React.Fragment>
                 <CardContent>
                   <Typography
-                    sx={{ fontSize: 30 }}
+                    sx={{ fontSize: 22, textAlign: "center" }}
                     color="text.primary"
-                    gutterBottom
                   >
                     {currentPoll.Options && currentPoll.Options[0]}
                   </Typography>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                  <Typography
+                    sx={{ textAlign: "center" }}
+                    color="text.secondary"
+                  >
                     {currentPoll.Votes && currentPoll.Votes[0]}
                   </Typography>
                 </CardContent>
@@ -38,18 +40,20 @@ export default function OutlinedCard() {
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <Box sx={{margin: 1}}>
+          <Box sx={{ margin: 2, marginTop: 0, marginLeft: 0 }}>
             <Card variant="outlined">
               <React.Fragment>
                 <CardContent>
                   <Typography
-                    sx={{ fontSize: 30 }}
+                    sx={{ fontSize: 22, textAlign: "center" }}
                     color="text.primary"
-                    gutterBottom
                   >
                     {currentPoll.Options && currentPoll.Options[1]}
                   </Typography>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                  <Typography
+                    sx={{ textAlign: "center" }}
+                    color="text.secondary"
+                  >
                     {currentPoll.Votes && currentPoll.Votes[1]}
                   </Typography>
                 </CardContent>
