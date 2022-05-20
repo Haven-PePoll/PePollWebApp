@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware, combineReducers } from "redux"; 
-import { PollReducer } from "./CurrentPollReducer";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import {composeWithDevTools} from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { RatingReducer } from "./RatingReducer";
 
 const rootReducer = combineReducers({
-    pollState:PollReducer
+    ratingState: RatingReducer
 });
 
 const Store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

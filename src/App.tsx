@@ -1,7 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import PollVotingPage from "./PollVotingPage";
 import { useEffect } from "react";
+import RatingViewPage from "./RatingViewPage";
 
 function App() {
   useEffect(() => {
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/:id" element={<PollVotingPage />} />
+      <Route path="/:id" element={<RatingViewPage />} />
     </Routes>
   );
 }
