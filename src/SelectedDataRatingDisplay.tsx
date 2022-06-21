@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { getRatingSummary } from "./CommonHelpers";
+import {
+  getDisplayTimeFromUnixTimestamp,
+  getRatingSummary,
+} from "./CommonHelpers";
 import RatingData from "./Rating";
 import { Rating } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
@@ -89,12 +92,8 @@ export const SelectedDateRatingDisplay: React.FC<SelectedDateRatingDisplayProps>
                     fontSize: 20,
                   }}
                 >
-                  {new Date(rating.timestamp * 1000).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    timeZone: "IST",
-                  })}
-                  : {rating.rating}/5
+                  {getDisplayTimeFromUnixTimestamp(rating.timestamp)}:{" "}
+                  {rating.rating}/5
                 </h1>
               </div>
             ))}

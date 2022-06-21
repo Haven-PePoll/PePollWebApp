@@ -19,7 +19,7 @@ export const SetRatings = (polls: RatingData[]): Action => (setRatingsAction(pol
 export const GetRatings = (name:String): ThunkAction<void, RootState, null, Action> => async (dispatch, getState) => {
     const collectionRef = collection(db, "pollData");
 
-    const q = query(collection(db, "pollData"), where("location", "==", name));
+    const q = query(collectionRef, where("location", "==", name));
 
     const querySnapshot = await getDocs(q);
 

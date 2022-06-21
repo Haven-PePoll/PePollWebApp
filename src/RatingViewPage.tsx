@@ -1,29 +1,39 @@
 import { Divider } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createSelector } from "reselect";
-import { getAverageRating } from "./CommonHelpers";
-import RatingData from "./Rating";
+import {
+  getAverageRating,
+  getDisplayTimeFromUnixTimestamp,
+} from "./CommonHelpers";
+import { GetOnlineStatus } from "./OnlineStatusActions";
 import { GetRatings } from "./RatingActions";
 import ResultCard from "./ResultCard";
 import { SelectedDateRatingDisplay } from "./SelectedDataRatingDisplay";
 import { StarsDisplay } from "./StarsDisplay";
 import { RootState } from "./Store";
+import DatePicker from "react-date-picker";
 
 export default function RatingViewPage() {
   const dispatch = useDispatch();
+
+  const [date, onChange] = useState(new Date());
 
   const todaysRatingFilter = createSelector(
     (state: RootState) => state.ratingState.ratings,
     (ratings) =>
       ratings
-        // .filter(
-        //   (rating) =>
-        //     new Date(rating.timestamp * 1000).toDateString() ===
-        //     new Date().toDateString()
-        // )
+        .filter(
+          (rating) =>
+            new Date(rating.timestamp * 1000).toDateString() ===
+            date.toDateString()
+        )
         .sort((a, b) => b.timestamp - a.timestamp)
+  );
+
+  const onlineStatus = useSelector(
+    (state: RootState) => state.onlineState.online
   );
 
   const todaysRating = useSelector(todaysRatingFilter);
@@ -32,6 +42,7 @@ export default function RatingViewPage() {
 
   useEffect(() => {
     dispatch(GetRatings(id as String));
+    dispatch(GetOnlineStatus(id as String));
   }, [id]);
 
   return (
@@ -61,6 +72,12 @@ export default function RatingViewPage() {
         <ResultCard></ResultCard>
       </div>
 
+      <div>
+        {onlineStatus &&
+          "Last Online At " +
+            getDisplayTimeFromUnixTimestamp(onlineStatus.timestamp)}
+      </div>
+
       <Divider variant="middle" style={{ marginTop: 10, color: "black" }} />
 
       <div
@@ -83,7 +100,7 @@ export default function RatingViewPage() {
             fontSize: 25,
           }}
         >
-          Today's Ratings: {id === "creamery" ? "Food" : "Ambiance"}
+          Today's Ratings: {id === "englishfoodbar" ? "Service" : "Food"}
         </h1>
 
         <div
@@ -102,8 +119,9 @@ export default function RatingViewPage() {
         </div>
       </div>
 
-      <SelectedDateRatingDisplay ratings={todaysRating}></SelectedDateRatingDisplay>
-      
+      <SelectedDateRatingDisplay
+        ratings={todaysRating}
+      ></SelectedDateRatingDisplay>
     </div>
   );
 }

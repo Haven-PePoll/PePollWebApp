@@ -10,7 +10,7 @@ export function getAverageRating(ratings: RatingData[]): number {
     return Number((totalRatings / ratings.length).toFixed(1))
 }
 
-export function getRatingSummary(ratings: RatingData[]) : number[]{
+export function getRatingSummary(ratings: RatingData[]): number[] {
     var totalCount: number[] = [0, 0, 0, 0, 0];
 
     ratings.forEach(rating => {
@@ -34,4 +34,12 @@ export function getRatingSummary(ratings: RatingData[]) : number[]{
     });
 
     return totalCount;
+}
+
+export function getDisplayTimeFromUnixTimestamp(timeStamp: number) : string {
+    return new Date(timeStamp * 1000).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "IST",
+    })
 }
